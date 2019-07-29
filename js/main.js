@@ -1,55 +1,57 @@
 /*----- constants -----*/ 
-const COLORS = {
-    '0': 'null',
+const COLORS = { // define color object for player moves
+    '0': 'white',
     '1': 'grey',
     '-1': 'black' 
 };
 
-const winningArr = [];
-    winningArr.push([1, 2, 3]);
-    winningArr.push([4, 5, 6]);
-    winningArr.push([7, 8, 9]);
-    winningArr.push([1, 4, 7]);
-    winningArr.push([2, 5, 8]);
-    winningArr.push([3, 6, 9]);
-    winningArr.push([1, 5, 9]);
-    winningArr.push([3, 5, 7]);
+const winArr = []
+//define winning combinations
+    winArr.push([1, 2, 3]); 
+    winArr.push([4, 5, 6]);
+    winArr.push([7, 8, 9]);
+    winArr.push([1, 4, 7]);
+    winArr.push([2, 5, 8]);
+    winArr.push([3, 6, 9]);
+    winArr.push([1, 5, 9]);
+    winArr.push([3, 5, 7]);
 
 
 /*----- app's state (variables) -----*/ 
-let board, turn, winner;
+let board = []
+let turn = ''
+let winner = '' // to rep winner, a tie, or game in play
+
 
 /*----- cached element references -----*/ 
-
+let msgEl = document.getElementById('msg');
 
 /*----- event listeners -----*/ 
-
+document.querySelector('section.board').addEventListener('click', handleClick);
 
 /*----- functions -----*/
 
 function init() {
-    boardArr = [
-        [1, 0, 0, 0, 0, 0, 0, 0, -1], // board array represeting 9 spaces
-    ];
+    board = [
+        0, 0, 0, 
+        0, 0, 0, 
+        0, 0, 0
+    ]; // board array represeting 9 spaces
     turn = 1;  // start with player 1
-    winner = null;          // 1, -1, null (no winner), 'T' (tie)
+    winner = 'null'; // -1 or 1 for winning player, T for tie
     render();
+    handleClick();
 }
+
 
 function render() {
-    boardArr.forEach(function(i) {
-        let div = document.getElementById(`s${i}`);
-        div.style.backgroundColor = COLORS[cell];
-});
+    for (i = 0; i < board.length; i++) {
+    
+    }
+    }
+
 
 function handleClick(evt) {
-    let idx = parseInt(evt.target.id.replace(`s`, ''));
-
-}
-
-if (winner) {
-1 || -1 === [winArr];
-return 'winMsg';
-
-}
-
+        let div = parseInt(evt.target);
+        console.log(div)
+    }
