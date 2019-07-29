@@ -12,13 +12,22 @@ body {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-
 section.board {
     display: grid;
     grid-template-columns: repeat(3, 20vmin);
     grid-template-rows: repeat(3, 20vmin);
     grid: white;
     color: white
+}
+
+.square {   
+    /* // ability to make sure context in square can be centered */
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
 }
 
 section div {

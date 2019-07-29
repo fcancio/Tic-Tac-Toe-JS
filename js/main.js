@@ -1,6 +1,6 @@
 /*----- constants -----*/ 
 const COLORS = { // define color object for player moves
-    '0': 'white',
+    'null': '',
     '1': 'grey',
     '-1': 'black' 
 };
@@ -18,78 +18,61 @@ const winCombos = [
 ];
 
 /*----- app's state (variables) -----*/ 
-let board = [];
-let turn, winner; // to rep winner, a tie, or game in play
+let board, turn, winner; // to rep winner, a tie, or game in play
 
 /*----- cached element references -----*/ 
-let msgEl = document.getElementById('msg');
+const message = document.querySelector('h2');
+const squares = document.querySelectorAll('.square')
 
 /*----- event listeners -----*/ 
-document.querySelector('section.board').addEventListener('click', handleClick);
-// document.querySelector('reset').addEventListener('click', resetGame);
+document.querySelector('button').addEventListener('click', init);
+document.querySelector('.game-board').addEventListener('click', handleClick);
 
 /*----- functions -----*/
+init();
 
 function init() {
-    board = [0, 0, 0, 0, 0, 0, 0, 0, 0]; // board array represeting 9 spaces
-    turn = 1;  // start with player 1
-    winner = null; // -1 or 1 for winning player, T for tie
-    msgEl.textContent = (`${COLORS[turn].toUpperCase()}'s TURN`);
-    handleClick(evt);
+    //syntax to create a new array and fill 
+    board = new Array(9).fill(null);
+    //assign a first turn
+    turn = 1;
+    winner = null;
+    //run the game through a render function
     render();
-    console.log(init)
-
 }
 
 function handleClick(evt) {
-    // define square index variable as a mapped value
-    let square = parseInt(evt.target.id);
-    // don't allow player to move on an already marked square
-    if (board[square] !== 0) return;
-    if (winner !== false) return;
-    if (isWinner === false) {
-        msgEl.textContent = (`${COLORS[turn].toUpperCase()}'s TURN`);
-        board[idx] = turn;
-        } 
-        if (turn === 1) {
-            setLetter.textContent = "X"
-            document.getElementById(`${idx}`).style.backgroundColor = COLORS[turn];
-            msgEl.textContent = "O's TURN"
-        }
-        else if (turn === -1) {
-            setLetter.textContent = "O"
-            document.getElementById(`${idx}`).style.backgroundColor = COLORS[turn];
-            msgEl.textContent = "X's TURN"
-        }
-        else {
-        }
-    }
+    //create shortcut variable
+    const moveIdx = parseInt(evt.target.dataset.square);
+    if(board[moveIdx] || winner) return;
+    board[moveIdx] = turn;
+    turn *= -1;
+    winner = getWinner();
+   render();
 }
-    
-    board[idx] = turn;
-    turns *= -1;
-    setWinner();
-    render();
 
+function getWinner() {
+    for(let i = 0; i < COMBOS.length; i++){
+        if(Math.abs(board[COMBOS[i][0]] + 
+                    board[COMBOS[i][1]] + 
+                    board[COMBOS[i][2]] === 3)) return board[COMBOS[i][0]];
+    }
+    if(board.includes(null)) return null;
+    return "T";
 }
-        
 
 function render() {
-    for (let i = 0; i < board.length; i++) {
-        let div = document.getElementById(`${i}`);
-        div.style.backgroundColor = COLORS[turn]
+    // any time a move is made or the game refreshes
+    board.forEach(function(elem, idx) {
+        // check for the index in squares node list
+        squares[idx].textContent = SPRITE[elem];
+    });
+    if(!winner) {
+        message.textContent = `${SPRITE[turn]}'s Turn`;
+    } else if(winner === "T") {
+        message.textContent = 'Tie Game!';
+    } else {
+        message.textContent = `${SPRITE[winner]} Wins!`;
 
-
-function setWinner() {
-    // winner = ''
-    // winCombos.forEach(function(combo) {
-    // if (combo === ) {
-    //     msgEl.textContent.toUpperCase = `${COLORS[turn]} HAS WON!`;
-    // } else {
-    //     msgEl.textContent.toUpperCase = `${COLORS[turn]}'s Turn`;
-    // }
-}
-
-function resetGame() {
-    // init();
-}
+    }
+    }
