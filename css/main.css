@@ -25,6 +25,10 @@ section div {
     border: 2px solid black;
 }
 
+section.board div:hover {
+    background-color: lightgrey;
+}
+
 button {
     align-items: center;
     padding: 5px;
